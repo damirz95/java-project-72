@@ -30,4 +30,7 @@ dependencies {
     implementation("io.javalin:javalin-bundle:6.1.3")
     implementation("io.javalin:javalin-rendering:6.1.3")
 
+    implementation("com.h2database:h2:2.2.220")
+    implementation("com.zaxxer:HikariCP:5.1.0")
+
 }
