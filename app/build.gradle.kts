@@ -1,7 +1,6 @@
 plugins {
     application
     checkstyle
-    id ("java")
     id("io.freefair.lombok") version "8.6"
     id ("com.adarshr.test-logger") version "3.0.0"
     id ("com.github.ben-manes.versions") version "0.39.0"

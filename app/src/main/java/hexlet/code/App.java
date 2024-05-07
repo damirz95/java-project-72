@@ -2,8 +2,10 @@ package hexlet.code;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import gg.jte.ContentType;
+import gg.jte.TemplateEngine;
+import gg.jte.resolve.ResourceCodeResolver;
 import hexlet.code.controller.RootController;
-import hexlet.code.util.DatabaseUrls;
 import hexlet.code.util.NamedRoutes;
 import io.javalin.Javalin;
 import io.javalin.rendering.template.JavalinJte;
@@ -16,7 +18,6 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.stream.Collectors;
 
-
 @Slf4j
 public class App {
 
@@ -26,10 +27,22 @@ public class App {
             return  reader.lines().collect(Collectors.joining("\n"));
         }
     }
+
+    public static String getDBUrl() {
+        String h2DBurl = "jdbc:h2:mem:project;DB_CLOSE_DELAY=-1";
+        return System.getenv().getOrDefault("JDBC_DATABASE_URL", h2DBurl);
+    }
+
+    public static TemplateEngine createTemplateEngin() {
+        ClassLoader classLoader = App.class.getClassLoader();
+        ResourceCodeResolver codeResolver = new ResourceCodeResolver("template", classLoader);
+        TemplateEngine templateEngine = TemplateEngine.create(codeResolver, ContentType.Html);
+        return  templateEngine;
+    }
+
     public static Javalin getApp() throws IOException, SQLException {
-        var dBUrl = new DatabaseUrls().getDBUrl();
         var hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(dBUrl);
+        hikariConfig.setJdbcUrl(getDBUrl());
 
         var dataSource = new HikariDataSource(hikariConfig);
         var sql = readResourceFile("schema.sql");
@@ -39,10 +52,9 @@ public class App {
             statement.execute(sql);
         }
 
-
         var app = Javalin.create(config -> {
             config.bundledPlugins.enableDevLogging();
-            config.fileRenderer(new JavalinJte());
+            config.fileRenderer(new JavalinJte(createTemplateEngin()));
         });
         app.get(NamedRoutes.rootPath(), RootController::rootPath);
         return app;
@@ -53,11 +65,7 @@ public class App {
         return Integer.parseInt(port);
     }
 
-
     public static void main(String[] args) throws SQLException, IOException {
-
-
-
         var app = getApp();
         app.start(getPort());
     }
