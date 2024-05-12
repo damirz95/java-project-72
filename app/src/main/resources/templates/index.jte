@@ -1,4 +1,7 @@
+@import hexlet.code.dto.url.BuildUrlPage
+@param BuildUrlPage page
 @template.layout.page(
+    page = page,
     content = @`
             <section>
                 <div class="container-fluid bg-dark p5">
@@ -6,7 +9,7 @@
                         <div class="col-md-10 col-lg-5 mx-auto text-white">
                             <h1 class="display-3 mb-0">Анализатор страниц</h1>
                             <p class="lead">Бесплатно проверяйте сайты на SEO пригодность</p>
-                            <form action="#" method="post" class="rss-form text-body">
+                            <form action="/" method="post" class="rss-form text-body">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-floating">
@@ -21,7 +24,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <p class="mt-2 mb-0">Пример запроса</p>
+                            <p class="mt-2 mb-0">Пример запроса : https://www.demo2s.com/java/java-uri-tourl.html</p>
                         </div>
                     </div>
                 </div>

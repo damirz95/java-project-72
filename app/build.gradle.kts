@@ -32,4 +32,6 @@ dependencies {
     implementation("com.h2database:h2:2.2.220")
     implementation("com.zaxxer:HikariCP:5.1.0")
 
+    implementation("commons-validator:commons-validator:1.7")
+
 }

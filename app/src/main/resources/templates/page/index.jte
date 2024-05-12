@@ -1,0 +1,42 @@
+@import hexlet.code.dto.url.UrlsPage
+@import hexlet.code.util.NamedRoutes
+@param UrlsPage page
+
+@template.layout.page(
+page = page,
+content = @`
+    <section>
+        <div class="container-lg mt-5">
+            <h1>Сайты</h1>
+            <table class="table table-bordered table-hover mt-3">
+                <thead>
+                    <tr>
+                        <th class="col-1">ID</th>
+                        <th>Имя</th>
+                        <th class="col-2">Последняя проверка</th>
+                        <th class="col-1">Код ответа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @if(!page.getUrlsPage().isEmpty())
+                    @for(var url: page.getUrlsPage())
+                        <tr>
+                            <td>${url.getId()}</td>
+                            <td>
+                                <a href="${NamedRoutes.showPath(url.getId())}">${url.getName()}</a>
+                            </td>
+                            <td>
+                                Null
+                            </td>
+                            <td>
+                                Null
+                            </td>
+                        </tr>
+                    @endfor
+                @endif
+                </tbody>
+            </table>
+        </div>
+    </section>
+    `
+)
