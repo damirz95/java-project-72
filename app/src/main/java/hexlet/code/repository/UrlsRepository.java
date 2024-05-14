@@ -56,7 +56,7 @@ public class UrlsRepository extends BaseRepository {
         String sql = "SELECT * FROM urls WHERE name = ?";
 
         try (var conn = dataSource.getConnection();
-        var preparedStm = conn.prepareStatement(sql)) {
+            var preparedStm = conn.prepareStatement(sql)) {
             preparedStm.setString(1, urlName);
             var resultSet = preparedStm.executeQuery();
             if (resultSet.next()) {

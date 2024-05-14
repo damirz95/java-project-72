@@ -34,7 +34,7 @@ public class UrlsController {
         try {
             URI uri = new URI(inputUrl);
             parsedUrl = uri.toURL();
-        } catch(Exception e) {
+        } catch (Exception e) {
             ctx.sessionAttribute("flash", "Некорректный URL");
             ctx.sessionAttribute("flashType", "danger");
             ctx.redirect("/");
