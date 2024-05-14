@@ -52,9 +52,25 @@ public class UrlsRepository extends BaseRepository {
         }
     }
 
-    public static boolean existsByName(String urlName) throws SQLException {
-        List<Url> entities = getEntities();
-        return entities.stream().anyMatch(value -> value.getName().equals(urlName));
+    public static Optional<Url> findByName(String urlName) throws SQLException {
+        String sql = "SELECT * FROM urls WHERE name = ?";
+
+        try (var conn = dataSource.getConnection();
+        var preparedStm = conn.prepareStatement(sql)) {
+            preparedStm.setString(1, urlName);
+            var resultSet = preparedStm.executeQuery();
+            if (resultSet.next()) {
+                String name = resultSet.getString("name");
+                Long id = resultSet.getLong("id");
+                LocalDate createdAt = resultSet.getTimestamp("created_at").toLocalDateTime().toLocalDate();
+                Url url = new Url(name);
+                url.setId(id);
+                url.setCreatedAt(createdAt);
+                return Optional.of(url);
+            } else {
+                return Optional.empty();
+            }
+        }
     }
 
     public static List<Url> getEntities() throws SQLException {

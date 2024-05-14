@@ -18,7 +18,6 @@ content = @`
                     </tr>
                 </thead>
                 <tbody>
-                @if(!page.getUrlsPage().isEmpty())
                     @for(var url: page.getUrlsPage())
                         <tr>
                             <td>${url.getId()}</td>
@@ -33,7 +32,6 @@ content = @`
                             </td>
                         </tr>
                     @endfor
-                @endif
                 </tbody>
             </table>
         </div>

@@ -59,7 +59,7 @@ public class App {
 
         app.get(NamedRoutes.rootPath(), RootController::rootPath);
         app.get(NamedRoutes.urlsPath(), UrlsController::showUrls);
-        app.post(NamedRoutes.postPath(), UrlsController::createSeo);
+        app.post(NamedRoutes.postPath(), UrlsController::createUrl);
         app.get(NamedRoutes.showPath("{id}"), UrlsController::showUrl);
         return app;
     }
