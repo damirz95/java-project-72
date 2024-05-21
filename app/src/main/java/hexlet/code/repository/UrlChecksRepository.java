@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -54,8 +54,16 @@ public class UrlChecksRepository extends BaseRepository {
                 var h1 = resultSet.getString("h1");
                 var title = resultSet.getString("title");
                 var description = resultSet.getString("description");
-                LocalDate createdAt = resultSet.getTimestamp("created_at").toLocalDateTime().toLocalDate();
-                UrlCheck urlChecks = new UrlCheck(id, statusCode, title, h1, description, urlId, createdAt);
+                var createdAt = resultSet.getTimestamp("created_at");
+                UrlCheck urlChecks = new UrlCheck();
+                urlChecks.setId(id);
+                urlChecks.setUrlId(urlId);
+                urlChecks.setH1(h1);
+                urlChecks.setTitle(title);
+                urlChecks.setStatusCode(statusCode);
+                urlChecks.setDescription(description);
+                urlChecks.setCreateAt(createdAt.toLocalDateTime().toLocalDate());
+                urlChecks.setTime(createdAt.toLocalDateTime().toLocalTime());
                 result.add(urlChecks);
             }
         }
@@ -75,8 +83,16 @@ public class UrlChecksRepository extends BaseRepository {
                 var h1 = resultSet.getString("h1");
                 var title = resultSet.getString("title");
                 var description = resultSet.getString("description");
-                LocalDate createdAt = resultSet.getTimestamp("created_at").toLocalDateTime().toLocalDate();
-                UrlCheck urlChecks = new UrlCheck(id, statusCode, title, h1, description, urlId, createdAt);
+                var createdAt = resultSet.getTimestamp("created_at");
+                UrlCheck urlChecks = new UrlCheck();
+                urlChecks.setId(id);
+                urlChecks.setUrlId(urlId);
+                urlChecks.setH1(h1);
+                urlChecks.setTitle(title);
+                urlChecks.setStatusCode(statusCode);
+                urlChecks.setDescription(description);
+                urlChecks.setCreateAt(createdAt.toLocalDateTime().toLocalDate());
+                urlChecks.setTime(createdAt.toLocalDateTime().toLocalTime());
                 result.put(urlId, urlChecks);
             }
         }

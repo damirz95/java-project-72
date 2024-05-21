@@ -29,11 +29,15 @@ public class UrlChecksController {
             String description = document.getElementsByAttributeValue("name", "description").attr("content");
             String h1 = document.getElementsByTag("h1").text();
 
-            UrlCheck urlCheck = new UrlCheck(code, getTitle, h1, description, inputUrl.getId());
+            UrlCheck urlCheck = new UrlCheck();
+            urlCheck.setUrlId(inputUrl.getId());
+            urlCheck.setH1(h1);
+            urlCheck.setTitle(getTitle);
+            urlCheck.setStatusCode(code);
+            urlCheck.setDescription(description);
             UrlChecksRepository.save(urlCheck);
             ctx.sessionAttribute("flash", "Страница успешно проверена");
             ctx.sessionAttribute("flashType", "success");
-
         } catch (UnirestException e) {
             ctx.sessionAttribute("flash", "Некорректный адрес");
             ctx.sessionAttribute("flashType", "danger");

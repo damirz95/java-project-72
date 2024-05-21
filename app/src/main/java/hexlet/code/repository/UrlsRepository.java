@@ -41,10 +41,11 @@ public class UrlsRepository extends BaseRepository {
             var resultSet = preparedStm.executeQuery();
             if (resultSet.next()) {
                 String name = resultSet.getString("name");
-                LocalDate cratedAt = resultSet.getTimestamp("created_at").toLocalDateTime().toLocalDate();
+                Timestamp createdAt = resultSet.getTimestamp("created_at");
                 Url url = new Url(name);
                 url.setId(id);
-                url.setCreatedAt(cratedAt);
+                url.setCreatedAt(createdAt.toLocalDateTime().toLocalDate());
+                url.setTime(createdAt.toLocalDateTime().toLocalTime());
                 return Optional.of(url);
             } else {
                 return Optional.empty();
@@ -62,10 +63,11 @@ public class UrlsRepository extends BaseRepository {
             if (resultSet.next()) {
                 String name = resultSet.getString("name");
                 Long id = resultSet.getLong("id");
-                LocalDate createdAt = resultSet.getTimestamp("created_at").toLocalDateTime().toLocalDate();
+                Timestamp createdAt = resultSet.getTimestamp("created_at");
                 Url url = new Url(name);
                 url.setId(id);
-                url.setCreatedAt(createdAt);
+                url.setCreatedAt(createdAt.toLocalDateTime().toLocalDate());
+                url.setTime(createdAt.toLocalDateTime().toLocalTime());
                 return Optional.of(url);
             } else {
                 return Optional.empty();
