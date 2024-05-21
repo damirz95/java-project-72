@@ -30,7 +30,7 @@ public class App {
     }
 
     public static String getDBUrl() {
-        String h2DBurl = "jdbc:h2:mem:project;DB_CLOSE_DELAY=-1";
+        String h2DBurl = "jdbc:h2:mem:project";
         return System.getenv().getOrDefault("JDBC_DATABASE_URL", h2DBurl);
     }
 
