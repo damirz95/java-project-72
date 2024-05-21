@@ -1,4 +1,5 @@
 @import hexlet.code.dto.url.UrlPage
+@import hexlet.code.util.NamedRoutes
 @param UrlPage page
 @template.layout.page(
 page = page,
@@ -23,10 +24,10 @@ content = @`
                 </tbody>
             </table>
             <h2 class="mt-5">Проверки</h2>
-            <form method="post" action="#">
+            <form method="post" action="${NamedRoutes.checksUrl(page.getUrl().getId())}">
                 <button type="submit" class="btn btn-primary">Запустить проверку</button>
             </form>
-            <table>
+            <table class="table table-border table-hover mt-3">
                 <thead>
                     <tr>
                         <th class="col-1">ID</th>
@@ -38,7 +39,18 @@ content = @`
                     </tr>
                 </thead>
                 <tbody>
-
+                @for(var urlCh: page.getUrlCheckList())
+                    @if(urlCh.getUrlId() == page.getUrl().getId())
+                        <tr>
+                            <td>${urlCh.getId()}</td>
+                            <td>${urlCh.getStatusCode()}</td>
+                            <td>${urlCh.getTitle()}</td>
+                            <td>${urlCh.getH1()}</td>
+                            <td>${urlCh.getDescription()}</td>
+                            <td>${String.valueOf(urlCh.getCreateAt())}</td>
+                        </tr>
+                    @endif
+                @endfor
                 </tbody>
             </table>
         </div>

@@ -20,4 +20,12 @@ public class NamedRoutes {
     public static String showPath(String id) {
         return "/urls/" + id;
     }
+
+    public static String checksUrl(Long id) {
+        return checksUrl(String.valueOf(id));
+    }
+
+    public static String checksUrl(String id) {
+        return "/urls/" + id + "/checks";
+    }
 }

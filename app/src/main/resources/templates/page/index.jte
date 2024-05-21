@@ -19,16 +19,17 @@ content = @`
                 </thead>
                 <tbody>
                     @for(var url: page.getUrlsPage())
+                        !{var urlCheck = page.getChecks().get(url.getId());}
                         <tr>
                             <td>${url.getId()}</td>
                             <td>
                                 <a href="${NamedRoutes.showPath(url.getId())}">${url.getName()}</a>
                             </td>
                             <td>
-                                Null
+                               ${urlCheck == null ? "" : String.valueOf(page.getChecks().get(url.getId()).getCreateAt())}
                             </td>
                             <td>
-                                Null
+                                ${urlCheck == null ? "" : String.valueOf(page.getChecks().get(url.getId()).getStatusCode())}
                             </td>
                         </tr>
                     @endfor
