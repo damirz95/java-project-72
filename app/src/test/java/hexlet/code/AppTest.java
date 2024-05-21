@@ -3,6 +3,8 @@ package hexlet.code;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
 import hexlet.code.model.Url;
@@ -27,9 +29,9 @@ public class AppTest {
 
     @BeforeAll
     public static void setUp() throws IOException {
+        String html = Files.readString(Paths.get("src/test/resources/test.html").toAbsolutePath()).trim();
         mockWebServer = new MockWebServer();
-        mockWebServer.enqueue(new MockResponse().setBody("hello, world!"));
-
+        mockWebServer.enqueue(new MockResponse().setResponseCode(200).setBody(html));
         mockWebServer.start();
     }
 
@@ -76,7 +78,7 @@ public class AppTest {
     }
 
     @Test
-    public void TestChecks() throws SQLException {
+    public void testChecks() throws SQLException {
         Url url = new Url(baseUrl);
         UrlsRepository.save(url);
         JavalinTest.test(app, (server, client) -> {
@@ -86,7 +88,9 @@ public class AppTest {
             var checks = UrlChecksRepository.getEntities().get(0);
             System.out.println(checks.getTitle());
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains(checks.getH1());
+            assertThat(checks.getTitle()).isEqualTo("Test Title");
+            assertThat(checks.getH1()).isEqualTo("Тестовый H1");
+            assertThat(checks.getDescription()).isEqualTo("Test content");
         });
     }
 }
