@@ -86,11 +86,15 @@ public class AppTest {
                     .orElseThrow(() -> new NotFoundResponse("Url not found"));
             var response = client.post(NamedRoutes.checksUrl(urlTest.getId()));
             var checks = UrlChecksRepository.getEntities().get(0);
-            System.out.println(checks.getTitle());
             assertThat(response.code()).isEqualTo(200);
+            assertThat(response.body().string()).contains(String.valueOf(checks.getUrlId()));
             assertThat(checks.getTitle()).isEqualTo("Test Title");
             assertThat(checks.getH1()).isEqualTo("Тестовый H1");
             assertThat(checks.getDescription()).isEqualTo("Test content");
+            var responseUrls = client.get(NamedRoutes.urlsPath());
+            assertThat(responseUrls.code()).isEqualTo(200);
+            assert responseUrls.body() != null;
+            assertThat(responseUrls.body().string()).contains(String.valueOf(checks.getStatusCode()));
         });
     }
 }
