@@ -24,7 +24,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <p class="mt-2 mb-0">Пример запроса : https://www.demo2s.com/java/java-uri-tourl.html</p>
+                            <p class="mt-2 mb-0">Пример запроса: https://www.example.com</p>
                         </div>
                     </div>
                 </div>

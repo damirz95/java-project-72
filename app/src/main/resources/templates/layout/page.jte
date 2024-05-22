@@ -46,7 +46,7 @@
     <footer class="footer border-top py-3 mt-5 bg-light">
         <div class="container-xl">
             <div class="text-center">
-                <a href="#">Создал</a>
+                <a href="https://github.com/damirz95">created by Turgunbaev Damir</a>
             </div>
         </div>
     </footer>
