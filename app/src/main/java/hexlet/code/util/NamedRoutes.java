@@ -10,7 +10,7 @@ public class NamedRoutes {
     }
 
     public static String postPath() {
-        return "/";
+        return "/urls";
     }
 
     public static String showPath(Long id) {

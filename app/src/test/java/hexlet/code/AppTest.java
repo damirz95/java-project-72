@@ -66,14 +66,30 @@ public class AppTest {
     }
 
     @Test
+    public void testUrlForm() {
+        String url = "https://proselyte.net";
+        JavalinTest.test(app, (server, client) -> {
+            var requestBody = "url=https://proselyte.net";
+            var response = client.post("/urls", requestBody);
+            assertThat(response.code()).isEqualTo(200);
+            var response2 = client.get("/urls");
+            assert response2.body() != null;
+            assertThat(response2.body().string()).contains(url);
+        });
+    }
+
+    @Test
     public void testUrlPage() throws SQLException {
-        Url url = new Url(baseUrl);
+        Url url = new Url("https://ru.hexlet.io");
         UrlsRepository.save(url);
         JavalinTest.test(app, (server, client) -> {
             Url urlTest = UrlsRepository.findByName(url.getName())
                     .orElseThrow(() -> new NotFoundResponse("Url not found"));
+
             var response = client.get("/urls/" + urlTest.getId());
             assertThat(response.code()).isEqualTo(200);
+            assert response.body() != null;
+            assertThat(response.body().string()).contains(url.getName());
         });
     }
 
