@@ -41,7 +41,7 @@ public class AppTest {
     }
 
     @BeforeEach
-    void initialize() throws SQLException, IOException {
+    public void initialize() throws SQLException, IOException {
         baseUrl = mockWebServer.url("/").toString();
         app = App.getApp();
     }
