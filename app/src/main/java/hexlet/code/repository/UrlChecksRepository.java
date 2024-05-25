@@ -61,8 +61,7 @@ public class UrlChecksRepository extends BaseRepository {
                 urlChecks.setTitle(title);
                 urlChecks.setStatusCode(statusCode);
                 urlChecks.setDescription(description);
-                urlChecks.setCreateAt(createdAt.toLocalDateTime().toLocalDate());
-                urlChecks.setTime(createdAt.toLocalDateTime().toLocalTime());
+                urlChecks.setCreateAt(createdAt.toLocalDateTime());
                 result.add(urlChecks);
             }
         }
@@ -90,8 +89,7 @@ public class UrlChecksRepository extends BaseRepository {
                 urlChecks.setTitle(title);
                 urlChecks.setStatusCode(statusCode);
                 urlChecks.setDescription(description);
-                urlChecks.setCreateAt(createdAt.toLocalDateTime().toLocalDate());
-                urlChecks.setTime(createdAt.toLocalDateTime().toLocalTime());
+                urlChecks.setCreateAt(createdAt.toLocalDateTime());
                 result.put(urlId, urlChecks);
             }
         }

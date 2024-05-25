@@ -29,6 +29,6 @@ make start
 ```
 -[Public access](https://java-analyzer.onrender.com/) on a free server from Render
 ## Preview
-![main page](/analyzerMain.png "main page")
-![urls page](/analyzerUrls.png "urls page")
-![url page](/analyzerUrl.png "url page")
+![main page](/preview/analyzerMain.png "main page")
+![urls page](/preview/analyzerUrls.png "urls page")
+![url page](/preview/analyzerUrl.png "url page")

@@ -19,7 +19,7 @@ content = @`
                     </tr>
                 </thead>
                 <tbody>
-                    !{DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.mm");}
+                    !{DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");}
                     @for(var url: page.getUrlsPage())
                         !{var urlCheck = page.getChecks().get(url.getId());}
                         <tr>
@@ -28,8 +28,7 @@ content = @`
                                 <a href="${NamedRoutes.showPath(url.getId())}">${url.getName()}</a>
                             </td>
                             <td>
-                               ${urlCheck == null ? "" : String.valueOf(page.getChecks().get(url.getId()).getCreateAt())}
-                                ${urlCheck == null ? "" : page.getChecks().get(url.getId()).getTime().format(formatter)}
+                               ${urlCheck == null ? "" : page.getChecks().get(url.getId()).getCreateAt().format(formatter)}
                             </td>
                             <td>
                                 ${urlCheck == null ? "" : String.valueOf(page.getChecks().get(url.getId()).getStatusCode())}

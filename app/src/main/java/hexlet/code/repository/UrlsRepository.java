@@ -43,8 +43,7 @@ public class UrlsRepository extends BaseRepository {
                 Timestamp createdAt = resultSet.getTimestamp("created_at");
                 Url url = new Url(name);
                 url.setId(id);
-                url.setCreatedAt(createdAt.toLocalDateTime().toLocalDate());
-                url.setTime(createdAt.toLocalDateTime().toLocalTime());
+                url.setCreatedAt(createdAt.toLocalDateTime());
                 return Optional.of(url);
             } else {
                 return Optional.empty();
@@ -65,8 +64,7 @@ public class UrlsRepository extends BaseRepository {
                 Timestamp createdAt = resultSet.getTimestamp("created_at");
                 Url url = new Url(name);
                 url.setId(id);
-                url.setCreatedAt(createdAt.toLocalDateTime().toLocalDate());
-                url.setTime(createdAt.toLocalDateTime().toLocalTime());
+                url.setCreatedAt(createdAt.toLocalDateTime());
                 return Optional.of(url);
             } else {
                 return Optional.empty();

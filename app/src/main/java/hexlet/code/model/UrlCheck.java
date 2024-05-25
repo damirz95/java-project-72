@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +17,5 @@ public class UrlCheck {
     private String h1;
     private String description;
     private Long urlId;
-    private LocalDate createAt;
-    private LocalTime time;
+    private LocalDateTime createAt;
 }

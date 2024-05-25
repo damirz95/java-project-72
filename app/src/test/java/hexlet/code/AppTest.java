@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.stream.Collectors;
 
 import hexlet.code.model.Url;
 import hexlet.code.repository.UrlChecksRepository;
@@ -73,7 +74,6 @@ public class AppTest {
             var response = client.post("/urls", requestBody);
             assertThat(response.code()).isEqualTo(200);
             var response2 = client.get("/urls");
-            assert response2.body() != null;
             assertThat(response2.body().string()).contains(url);
         });
     }
@@ -85,7 +85,6 @@ public class AppTest {
         JavalinTest.test(app, (server, client) -> {
             Url urlTest = UrlsRepository.findByName(url.getName())
                     .orElseThrow(() -> new NotFoundResponse("Url not found"));
-
             var response = client.get("/urls/" + urlTest.getId());
             assertThat(response.code()).isEqualTo(200);
             assert response.body() != null;
@@ -101,16 +100,17 @@ public class AppTest {
             Url urlTest = UrlsRepository.findByName(url.getName())
                     .orElseThrow(() -> new NotFoundResponse("Url not found"));
             var response = client.post(NamedRoutes.checksUrl(urlTest.getId()));
-            var checks = UrlChecksRepository.getEntities().get(0);
+            var checks = UrlChecksRepository.getEntities().stream()
+                    .filter(value -> value.getUrlId().equals(urlTest.getId()))
+                    .findFirst();
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains(String.valueOf(checks.getUrlId()));
-            assertThat(checks.getTitle()).isEqualTo("Test Title");
-            assertThat(checks.getH1()).isEqualTo("Тестовый H1");
-            assertThat(checks.getDescription()).isEqualTo("Test content");
+            assertThat(response.body().string()).contains(String.valueOf(checks.get().getUrlId()));
+            assertThat(checks.get().getTitle()).isEqualTo("Test Title");
+            assertThat(checks.get().getH1()).isEqualTo("Тестовый H1");
+            assertThat(checks.get().getDescription()).isEqualTo("Test content");
             var responseUrls = client.get(NamedRoutes.urlsPath());
             assertThat(responseUrls.code()).isEqualTo(200);
-            assert responseUrls.body() != null;
-            assertThat(responseUrls.body().string()).contains(String.valueOf(checks.getStatusCode()));
+            assertThat(responseUrls.body().string()).contains(String.valueOf(checks.get().getStatusCode()));
         });
     }
 }

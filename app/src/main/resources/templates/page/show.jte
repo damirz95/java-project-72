@@ -9,7 +9,7 @@ content = @`
         <div class="container-lg mt-5">
             <h1>Сайты: ${page.getUrl().getName()}</h1>
             <table class="table table-bordered table-hover mt-3">
-                !{DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH.mm");}
+                !{DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");}
                 <tbody>
                 <tr>
                     <td>ID</td>
@@ -21,7 +21,7 @@ content = @`
                 </tr>
                 <tr>
                     <td>Дата создания</td>
-                    <td>${String.valueOf(page.getUrl().getCreatedAt())} ${page.getUrl().getTime().format(formatter)}</td>
+                    <td>${page.getUrl().getCreatedAt().format(formatter)}</td>
                 </tr>
                 </tbody>
             </table>
@@ -50,7 +50,7 @@ content = @`
                             <td>${urlCh.getTitle()}</td>
                             <td>${urlCh.getH1()}</td>
                             <td>${urlCh.getDescription()}</td>
-                            <td>${String.valueOf(urlCh.getCreateAt())} ${urlCh.getTime().format(formatter)}</td>
+                            <td>${urlCh.getCreateAt().format(formatter)}</td>
                         </tr>
                     @endif
                 @endfor
