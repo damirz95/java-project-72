@@ -99,17 +99,15 @@ public class AppTest {
             Url urlTest = UrlsRepository.findByName(url.getName())
                     .orElseThrow(() -> new NotFoundResponse("Url not found"));
             var response = client.post(NamedRoutes.checksUrl(urlTest.getId()));
-            var checks = UrlChecksRepository.getEntities().stream()
-                    .filter(value -> value.getUrlId().equals(urlTest.getId()))
-                    .findFirst();
+            var checks = UrlChecksRepository.findByUrlId(urlTest.getId()).get(0);
             assertThat(response.code()).isEqualTo(200);
-            assertThat(response.body().string()).contains(String.valueOf(checks.get().getUrlId()));
-            assertThat(checks.get().getTitle()).isEqualTo("Test Title");
-            assertThat(checks.get().getH1()).isEqualTo("Тестовый H1");
-            assertThat(checks.get().getDescription()).isEqualTo("Test content");
+            assertThat(response.body().string()).contains(String.valueOf(checks.getUrlId()));
+            assertThat(checks.getTitle()).isEqualTo("Test Title");
+            assertThat(checks.getH1()).isEqualTo("Тестовый H1");
+            assertThat(checks.getDescription()).isEqualTo("Test content");
             var responseUrls = client.get(NamedRoutes.urlsPath());
             assertThat(responseUrls.code()).isEqualTo(200);
-            assertThat(responseUrls.body().string()).contains(String.valueOf(checks.get().getStatusCode()));
+            assertThat(responseUrls.body().string()).contains(String.valueOf(checks.getStatusCode()));
         });
     }
 }

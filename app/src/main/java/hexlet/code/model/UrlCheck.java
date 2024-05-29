@@ -17,5 +17,5 @@ public class UrlCheck {
     private String h1;
     private String description;
     private Long urlId;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 }

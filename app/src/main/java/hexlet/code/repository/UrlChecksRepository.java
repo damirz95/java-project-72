@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class UrlChecksRepository extends BaseRepository {
     public static void save(UrlCheck url) throws SQLException {
@@ -61,7 +62,7 @@ public class UrlChecksRepository extends BaseRepository {
                 urlChecks.setTitle(title);
                 urlChecks.setStatusCode(statusCode);
                 urlChecks.setDescription(description);
-                urlChecks.setCreateAt(createdAt.toLocalDateTime());
+                urlChecks.setCreatedAt(createdAt.toLocalDateTime());
                 result.add(urlChecks);
             }
         }
@@ -89,10 +90,38 @@ public class UrlChecksRepository extends BaseRepository {
                 urlChecks.setTitle(title);
                 urlChecks.setStatusCode(statusCode);
                 urlChecks.setDescription(description);
-                urlChecks.setCreateAt(createdAt.toLocalDateTime());
+                urlChecks.setCreatedAt(createdAt.toLocalDateTime());
                 result.put(urlId, urlChecks);
             }
         }
         return result;
+    }
+
+    public static List<UrlCheck> findByUrlId(Long urlId) throws SQLException {
+        var sql = "SELECT * FROM url_checks WHERE url_id = ? ORDER BY id DESC";
+        try (Connection connection = dataSource.getConnection();
+             PreparedStatement preparedStm = connection.prepareStatement(sql)) {
+            preparedStm.setLong(1, urlId);
+            var resultSet = preparedStm.executeQuery();
+            var result = new ArrayList<UrlCheck>();
+            while (resultSet.next()) {
+                var id = resultSet.getLong("id");
+                var statusCode = resultSet.getInt("status_code");
+                var title = resultSet.getString("title");
+                var h1 = resultSet.getString("h1");
+                var description = resultSet.getString("description");
+                var createdAt = resultSet.getTimestamp("created_at");
+                UrlCheck urlCheck = new UrlCheck();
+                urlCheck.setId(id);
+                urlCheck.setUrlId(urlId);
+                urlCheck.setH1(h1);
+                urlCheck.setTitle(title);
+                urlCheck.setStatusCode(statusCode);
+                urlCheck.setDescription(description);
+                urlCheck.setCreatedAt(createdAt.toLocalDateTime());
+                result.add(urlCheck);
+            }
+            return result;
+        }
     }
 }

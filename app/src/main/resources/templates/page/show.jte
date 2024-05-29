@@ -50,7 +50,7 @@ content = @`
                             <td>${urlCh.getTitle()}</td>
                             <td>${urlCh.getH1()}</td>
                             <td>${urlCh.getDescription()}</td>
-                            <td>${urlCh.getCreateAt().format(formatter)}</td>
+                            <td>${urlCh.getCreatedAt().format(formatter)}</td>
                         </tr>
                     @endif
                 @endfor

@@ -28,7 +28,7 @@ content = @`
                                 <a href="${NamedRoutes.showPath(url.getId())}">${url.getName()}</a>
                             </td>
                             <td>
-                               ${urlCheck == null ? "" : page.getChecks().get(url.getId()).getCreateAt().format(formatter)}
+                               ${urlCheck == null ? "" : page.getChecks().get(url.getId()).getCreatedAt().format(formatter)}
                             </td>
                             <td>
                                 ${urlCheck == null ? "" : String.valueOf(page.getChecks().get(url.getId()).getStatusCode())}
